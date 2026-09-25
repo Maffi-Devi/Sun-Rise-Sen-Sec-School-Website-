@@ -1,15 +1,20 @@
 <!--{
   "file": "contact.html",
-  "title": "Contact Us — Address, Phone & Map | Sun Rise Sr. Sec. School, Magho Majri, Kaithal",
-  "description": "Contact Sun Rise Sr. Sec. School, Khanouri Road, Village Magho Majri, P.O. Manas, Kaithal, Haryana 136027. Phone 92555 28310, admissions 87088 67177, email sunrisesr.secschool@yahoo.com.",
+  "title": "Contact Us | Sun Rise Sr. Sec. School, Kaithal",
+  "description": "Visit Sun Rise Sr. Sec. School, Khanouri Road, Magho Majri, Kaithal 136027. Call 92555 28310, admissions 87088 67177, or email the school.",
   "keywords": "Sun Rise school contact, Sun Rise school Kaithal phone number, Magho Majri school address, school on Khanouri Road Kaithal",
   "crumb": "Contact Us",
   "priority": 0.8,
   "ogImage": "school-gate.jpg",
-  "hero": { "img": "school-gate.jpg", "title": "Contact Us", "text": "We'd love to hear from you. Call, write or visit our campus on Khanouri Road, Kaithal." }
+  "hero": {
+    "img": "school-gate.jpg",
+    "title": "Contact Us",
+    "text": "We'd love to hear from you. Call, write or visit our campus on Khanouri Road, Kaithal."
+  }
 }-->
     <section class="section">
       <div class="container">
+        <h2 class="sr-only">Contact details</h2>
         <div class="grid grid-4 reveal-stagger">
           <a class="card value-card" href="tel:+919255528310"><span class="card__icon">{{icon:phone}}</span><h3>School Office</h3><p>+91 92555 28310</p></a>
           <a class="card value-card card--accent" href="tel:+918708867177"><span class="card__icon">{{icon:grad}}</span><h3>Admissions</h3><p>+91 87088 67177</p></a>
@@ -59,7 +64,17 @@
     <section class="section" style="padding-top:0">
       <div class="container">
         <div class="map reveal">
-          <iframe title="Map showing Sun Rise Sr. Sec. School, Magho Majri, Kaithal" src="https://www.google.com/maps?q=Sun+Rise+Senior+Secondary+School,+Magho+Majri,+Kaithal,+Haryana&amp;z=14&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          <div class="map-facade" data-map-src="https://www.google.com/maps?q=Sun+Rise+Senior+Secondary+School,+Magho+Majri,+Kaithal,+Haryana&amp;z=14&amp;output=embed" data-map-title="Map showing Sun Rise Sr. Sec. School, Magho Majri, Kaithal">
+            <div class="map-facade__inner">
+              <span class="map-facade__pin">{{icon:pin}}</span>
+              <strong>Sun Rise Sr. Sec. School</strong>
+              <span>Khanouri Road, Magho Majri, Kaithal – 136027</span>
+              <div class="map-facade__actions">
+                <button class="btn btn--sm" type="button" data-map-load>{{icon:pin}} Show Map</button>
+                <a class="btn btn--sm btn--ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Sun+Rise+Senior+Secondary+School,+Magho+Majri,+Kaithal" target="_blank" rel="noopener">Open in Google Maps</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

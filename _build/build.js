@@ -218,22 +218,57 @@ function addImageDims(html) {
     if (!m || /^(https?:|data:)/.test(m[1])) return tag;
     const size = imageSize(path.join(ROOT, m[1]));
     if (!size) { console.warn("  ! missing image", m[1]); return tag; }
-    return `<img${attrs.replace(/\s*$/, "")} width="${size.w}" height="${size.h}">`;
+    let extra = "";
+    const small = m[1].replace(/\.jpg$/, "-sm.jpg");
+    if (small !== m[1] && fs.existsSync(path.join(ROOT, small)) && !/\ssrcset=/.test(attrs)) {
+      const sizes = (attrs.match(/data-sizes="([^"]+)"/) || [])[1] || "(max-width: 720px) 100vw, 50vw";
+      extra = ` srcset="${small} 720w, ${m[1]} ${size.w}w" sizes="${sizes}"`;
+    }
+    const sizesUsed = (extra.match(/sizes="([^"]+)"/) || [])[1];
+    const inPicture = /\sdata-in-picture/.test(attrs);
+    const cleanAttrs = attrs.replace(/\sdata-sizes="[^"]*"/, "").replace(/\sdata-in-picture/, "").replace(/\s*$/, "");
+    const img = `<img${cleanAttrs}${extra} width="${size.w}" height="${size.h}">`;
+    // WebP alternative (created by make-webp.js) with JPEG fallback
+    const webp = m[1].replace(/\.jpg$/, ".webp");
+    if (webp === m[1] || !fs.existsSync(path.join(ROOT, webp))) return img;
+    const smallWebp = small.replace(/\.jpg$/, ".webp");
+    const webpSet = sizesUsed && fs.existsSync(path.join(ROOT, smallWebp))
+      ? `${smallWebp} 720w, ${webp} ${size.w}w` : webp;
+    const source = `<source type="image/webp" srcset="${webpSet}"${sizesUsed ? ` sizes="${sizesUsed}"` : ""}>`;
+    return inPicture ? source + img : `<picture>${source}${img}</picture>`;
   });
 }
 
 /* ---------------- Layout ---------------- */
+const esc = (s) => String(s).replace(/&(?![a-zA-Z]+;|#d+;)/g, "&amp;").replace(/"/g, "&quot;");
+
 function layout(page, body) {
+  page = { ...page, title: esc(page.title), description: esc(page.description), ogTitle: page.ogTitle && esc(page.ogTitle) };
   const canonical = SITE.url + "/" + (page.file === "index.html" ? "" : page.file);
   const ogImage = SITE.url + "/assets/img/" + (page.ogImage || "morning-assembly.jpg");
   const schemas = [schoolSchema(), breadcrumbSchema(page)].concat(page.schema || []).filter(Boolean);
   const ld = schemas.map((s) => `<script type="application/ld+json">${JSON.stringify(s)}</script>`).join("\n  ");
-  const preload = page.preload ? `\n  <link rel="preload" as="image" href="${page.preload}" fetchpriority="high">` : "";
+  let preload = "";
+  if (page.preload) {
+    // preload the same file the <picture> will pick (WebP when available)
+    const full = imageSize(path.join(ROOT, page.preload));
+    const webp = page.preload.replace(/\.jpg$/, ".webp");
+    const useWebp = fs.existsSync(path.join(ROOT, webp));
+    const main = useWebp ? webp : page.preload;
+    const ext = useWebp ? ".webp" : ".jpg";
+    const small = page.preload.replace(/\.jpg$/, "-sm" + ext);
+    const set = fs.existsSync(path.join(ROOT, small)) && full
+      ? ` imagesrcset="${small} 720w, ${main} ${full.w}w" imagesizes="${page.preloadSizes || "(max-width: 720px) 420px, 100vw"}"` : "";
+    const media = page.preloadMedia ? ` media="${page.preloadMedia}"` : "";
+    const type = useWebp ? ` type="image/webp"` : "";
+    preload = `\n  <link rel="preload" as="image" href="${main}"${set}${type}${media} fetchpriority="high">`;
+  }
 
   return `<!DOCTYPE html>
 <html lang="en-IN" class="no-js">
 <head>
   <meta charset="utf-8">
+  <script>document.documentElement.classList.remove("no-js")</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${page.title}</title>
   <meta name="description" content="${page.description}">
@@ -259,14 +294,14 @@ function layout(page, body) {
   <meta name="twitter:description" content="${page.description}">
   <meta name="twitter:image" content="${ogImage}">
 
+  <link rel="icon" href="favicon.ico" sizes="32x32">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icon-32.png">
   <link rel="apple-touch-icon" href="assets/img/icon-180.png">
   <link rel="manifest" href="site.webmanifest">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">${preload}
+  <link rel="preload" href="assets/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.min.css">${preload}
   ${ld}
 </head>
 <body>
@@ -286,7 +321,7 @@ function layout(page, body) {
   <header class="site-header">
     <div class="container">
       <a class="brand" href="index.html" aria-label="${SITE.name} — Home">
-        <img src="assets/img/logo.png" alt="Sun Rise Sr. Sec. School logo" width="230" height="204">
+        <img src="assets/img/logo-sm.png" alt="Sun Rise Sr. Sec. School logo" width="128" height="114">
         <span><span class="brand__name">Sun Rise Sr. Sec. School</span><span class="brand__sub">MAGHO MAJRI · KAITHAL · CBSE</span></span>
       </a>
       <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu">${ICONS.menu}</button>
@@ -309,7 +344,7 @@ ${body}
     <div class="container footer-grid">
       <div>
         <div class="footer-brand">
-          <img src="assets/img/logo.png" alt="" width="230" height="204" loading="lazy">
+          <img src="assets/img/logo-sm.png" alt="" width="128" height="114" loading="lazy">
           <div><strong>Sun Rise Sr. Sec. School</strong><span>Magho Majri, Kaithal (Haryana)</span></div>
         </div>
         <p>A CBSE-affiliated co-educational school from Nursery to Class XII, nurturing young minds in Kaithal since ${SITE.founded}. <em>“${SITE.motto}.”</em></p>
@@ -373,7 +408,7 @@ ${body}
 function pageHero(page) {
   if (!page.hero) return "";
   return `    <section class="page-hero">
-      <div class="page-hero__bg"><img src="assets/img/${page.hero.img}" alt="" fetchpriority="high"${page.hero.pos ? ` style="object-position:${page.hero.pos}"` : ""}></div>
+      <div class="page-hero__bg"><img src="assets/img/${page.hero.img}" data-sizes="(max-width: 720px) 420px, 100vw" alt="" fetchpriority="high"${page.hero.pos ? ` style="object-position:${page.hero.pos}"` : ""}></div>
       <div class="container">
         <ol class="breadcrumb" aria-label="Breadcrumb"><li><a href="index.html">Home</a></li><li aria-current="page">${page.crumb}</li></ol>
         <h1>${page.hero.title}</h1>
@@ -382,6 +417,12 @@ function pageHero(page) {
     </section>
 `;
 }
+
+/* ---------------- Minify assets ---------------- */
+function minifyCss(css) {
+  return css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\s+/g, " ").replace(/\s*([{};,>])\s*/g, "$1").replace(/;}/g, "}").trim();
+}
+fs.writeFileSync(path.join(ROOT, "assets/css/style.min.css"), minifyCss(fs.readFileSync(path.join(ROOT, "assets/css/style.css"), "utf8")));
 
 /* ---------------- Build ---------------- */
 const built = [];

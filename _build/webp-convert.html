@@ -1,0 +1,5 @@
+<!doctype html><body><script>
+var p=new URLSearchParams(location.search),i=new Image();
+i.onload=function(){var c=document.createElement('canvas');c.width=i.naturalWidth;c.height=i.naturalHeight;c.getContext('2d').drawImage(i,0,0);document.body.textContent='WEBP:'+c.toDataURL('image/webp',parseFloat(p.get('q')||'0.78'))};
+i.onerror=function(){document.body.textContent='ERR'};i.src=p.get('img');
+</script>

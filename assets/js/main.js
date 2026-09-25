@@ -1,15 +1,20 @@
 /* Sun Rise Sr. Sec. School — site interactions */
 (function () {
   "use strict";
-  document.documentElement.classList.remove("no-js");
+  document.documentElement.classList.remove("no-js"); // normally already done by the inline script in <head>
 
   /* ---------- Sticky header shadow + back-to-top ---------- */
   var header = document.querySelector(".site-header");
   var toTop = document.querySelector(".fab__top");
-  function onScroll() {
+  var ticking = false;
+  function update() {
+    ticking = false;
     var y = window.scrollY;
     if (header) header.classList.toggle("is-scrolled", y > 10);
     if (toTop) toTop.classList.toggle("is-visible", y > 600);
+  }
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
@@ -195,6 +200,20 @@
       }
     }
   }
+
+  /* ---------- Map: load Google Maps only when asked ---------- */
+  document.querySelectorAll("[data-map-load]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var box = btn.closest(".map-facade");
+      var frame = document.createElement("iframe");
+      frame.src = box.getAttribute("data-map-src");
+      frame.title = box.getAttribute("data-map-title");
+      frame.loading = "lazy";
+      frame.referrerPolicy = "no-referrer-when-downgrade";
+      frame.allowFullscreen = true;
+      box.replaceWith(frame);
+    });
+  });
 
   /* ---------- Footer year ---------- */
   document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
