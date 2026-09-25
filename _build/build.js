@@ -33,6 +33,8 @@ const SITE = {
   affiliation: "531671",
   schoolCode: "41650",
   founded: "2005",
+  instagram: "https://www.instagram.com/sunrise_sen_sec_school_ktl/",
+  facebook: "https://www.facebook.com/p/Sunrise-SR-SEC-School-100057047636289/",
 };
 
 /* ---------------- Icons (stroke icons, 24x24) ---------------- */
@@ -84,6 +86,8 @@ const ICONS = {
   medal: P('<path d="M7.2 15 2.7 7.2A2 2 0 0 1 2.9 5l1.3-1.6A2 2 0 0 1 5.8 3h12.4a2 2 0 0 1 1.6.8L21.1 5a2 2 0 0 1 .2 2.2L16.8 15"/><path d="M11 12 5.1 3.2M13 12l5.9-8.8M8 7h8"/><circle cx="12" cy="17" r="5"/>'),
   run: P('<circle cx="17" cy="4" r="2"/><path d="m15.6 8.6-3.8 2.8 3 3.2-1.8 5.4M8 21l3-6M5 11l3-3 4 1 3 3 3 1"/>'),
   music: P('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>'),
+  instagram: P('<rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/>'),
+  facebook: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.2c-.3 0-1.3-.2-2.6-.2-2.6 0-4.3 1.6-4.3 4.5v2H7.2V12h2.9v10h3.9V12h2.9l.5-3.5z"/></svg>',
   home: P('<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>'),
   whatsapp: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.3-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2A11.8 11.8 0 0 0 12 .2C5.5.2.2 5.5.2 12c0 2.1.5 4.1 1.6 5.9L.1 24l6.3-1.7c1.7.9 3.7 1.4 5.6 1.4 6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.4-8.3z"/></svg>',
 };
@@ -141,6 +145,7 @@ function schoolSchema() {
     alternateName: ["Sun Rise Senior Secondary School", "Sunrise Sr. Sec. School Kaithal", "Sun Rise School Magho Majri"],
     url: SITE.url + "/",
     logo: SITE.url + "/assets/img/logo.png",
+    sameAs: [SITE.instagram, SITE.facebook],
     image: SITE.url + "/assets/img/campus-building.jpg",
     slogan: SITE.motto,
     foundingDate: SITE.founded,
@@ -274,7 +279,7 @@ function layout(page, body) {
         <li class="hide-sm"><a href="mailto:${SITE.email}">${ICONS.mail}${SITE.email}</a></li>
         <li class="hide-sm">${ICONS.clock}Mon – Sat · 8:30 AM – 2:20 PM</li>
       </ul>
-      <span class="topbar__tag">Affiliated to CBSE, New Delhi · No. ${SITE.affiliation}</span>
+      <div class="topbar__right"><span class="topbar__tag">Affiliated to CBSE, New Delhi · No. ${SITE.affiliation}</span><div class="social social--top"><a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Sun Rise School on Instagram">${ICONS.instagram}</a><a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Sun Rise School on Facebook">${ICONS.facebook}</a></div></div>
     </div>
   </div>
 
@@ -309,6 +314,8 @@ ${body}
         </div>
         <p>A CBSE-affiliated co-educational school from Nursery to Class XII, nurturing young minds in Kaithal since ${SITE.founded}. <em>“${SITE.motto}.”</em></p>
         <span class="footer-badge">${ICONS.award} CBSE Affiliation No. ${SITE.affiliation} · School Code ${SITE.schoolCode}</span>
+        <p class="footer-follow">Follow us</p>
+        <div class="social social--footer"><a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Sun Rise School on Instagram">${ICONS.instagram}</a><a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Sun Rise School on Facebook">${ICONS.facebook}</a></div>
       </div>
       <div>
         <h3>Quick Links</h3>
@@ -366,7 +373,7 @@ ${body}
 function pageHero(page) {
   if (!page.hero) return "";
   return `    <section class="page-hero">
-      <div class="page-hero__bg"><img src="assets/img/${page.hero.img}" alt="" fetchpriority="high"></div>
+      <div class="page-hero__bg"><img src="assets/img/${page.hero.img}" alt="" fetchpriority="high"${page.hero.pos ? ` style="object-position:${page.hero.pos}"` : ""}></div>
       <div class="container">
         <ol class="breadcrumb" aria-label="Breadcrumb"><li><a href="index.html">Home</a></li><li aria-current="page">${page.crumb}</li></ol>
         <h1>${page.hero.title}</h1>
