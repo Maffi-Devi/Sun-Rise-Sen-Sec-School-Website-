@@ -118,7 +118,6 @@ const NAV = [
     { label: "Photo Gallery", sub: "Campus, events & more", href: "gallery.html" },
     { label: "Achievements", sub: "Our pride", href: "achievements.html" },
   ] },
-  { label: "Disclosure", href: "mandatory-disclosure.html" },
   { label: "Contact", href: "contact.html" },
 ];
 
@@ -314,7 +313,7 @@ function layout(page, body) {
         <li class="hide-sm"><a href="mailto:${SITE.email}">${ICONS.mail}${SITE.email}</a></li>
         <li class="hide-sm">${ICONS.clock}Mon – Sat · 8:30 AM – 2:20 PM</li>
       </ul>
-      <div class="topbar__right"><span class="topbar__tag">Affiliated to CBSE, New Delhi · No. ${SITE.affiliation}</span><div class="social social--top"><a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Sun Rise School on Instagram">${ICONS.instagram}</a><a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Sun Rise School on Facebook">${ICONS.facebook}</a></div></div>
+      <div class="topbar__right"><span class="topbar__tag">Affiliated to CBSE, New Delhi · No. ${SITE.affiliation}</span><div class="social social--top"><a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Sun Rise School on Instagram">${ICONS.instagram}</a><a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Sun Rise School on Facebook">${ICONS.facebook}</a><a href="mailto:${SITE.email}" aria-label="Email the school">${ICONS.mail}</a><a href="tel:${SITE.phoneRaw}" aria-label="Call the school">${ICONS.phone}</a></div></div>
     </div>
   </div>
 
@@ -350,7 +349,7 @@ ${body}
         <p>A CBSE-affiliated co-educational school from Nursery to Class XII, nurturing young minds in Kaithal since ${SITE.founded}. <em>“${SITE.motto}.”</em></p>
         <span class="footer-badge">${ICONS.award} CBSE Affiliation No. ${SITE.affiliation} · School Code ${SITE.schoolCode}</span>
         <p class="footer-follow">Follow us</p>
-        <div class="social social--footer"><a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Sun Rise School on Instagram">${ICONS.instagram}</a><a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Sun Rise School on Facebook">${ICONS.facebook}</a></div>
+        <div class="social social--footer"><a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Sun Rise School on Instagram">${ICONS.instagram}</a><a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Sun Rise School on Facebook">${ICONS.facebook}</a><a href="mailto:${SITE.email}" aria-label="Email the school">${ICONS.mail}</a><a href="tel:${SITE.phoneRaw}" aria-label="Call the school">${ICONS.phone}</a></div>
       </div>
       <div>
         <h3>Quick Links</h3>
@@ -386,8 +385,8 @@ ${body}
     </div>
     <div class="footer-bottom">
       <div class="container">
-        <span>© <span data-year>2026</span> ${SITE.fullName}. All rights reserved.</span>
-        <span>Run by Sun Rise Education Society, Mago Majri</span>
+        <span>© <span data-year>2026</span> ${SITE.fullName}. All rights reserved.<br><small>Run by Sun Rise Education Society, Mago Majri</small></span>
+        <nav class="footer-legal" aria-label="Legal"><a href="privacy-policy.html">Privacy Policy</a><a href="terms-of-service.html">Terms of Service</a><a href="mandatory-disclosure.html">Mandatory Disclosure</a></nav>
       </div>
     </div>
   </footer>

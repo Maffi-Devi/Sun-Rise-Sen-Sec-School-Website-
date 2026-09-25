@@ -784,3 +784,23 @@ picture { display: contents; }
   .hero__media { height: clamp(380px, min(calc(100svh - 280px), 500px), 500px); }
 }
 @media (max-width: 720px) { .value-card { padding: 22px 18px; } }
+
+/* ---------- Legal pages ---------- */
+.legal { max-width: 860px; }
+.legal h2 { font-size: 1.45rem; margin: 38px 0 12px; }
+.legal p, .legal li { color: var(--text); }
+.legal ul { margin: 0 0 1em; }
+.legal li { margin-bottom: 6px; }
+.legal__updated { display: inline-block; background: var(--primary-50); color: var(--primary-800); font-weight: 700; font-size: .85rem; padding: 6px 14px; border-radius: 999px; }
+
+/* ---------- Footer legal links ---------- */
+.footer-bottom .container { align-items: center; }
+.footer-bottom small { color: #7f9f9b; }
+.footer-legal { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+.footer-legal a { color: #a9c7c3; font-weight: 600; }
+.footer-legal a:hover { color: #fff; }
+
+/* ---------- Contact fixes ---------- */
+.contact-card .btn--light, .contact-card .btn--light:hover { color: var(--primary-800); }
+.email-text { font-size: .9rem; overflow-wrap: anywhere; }
+@media (max-width: 720px) { .footer-bottom .container { flex-direction: column; align-items: flex-start; } }
