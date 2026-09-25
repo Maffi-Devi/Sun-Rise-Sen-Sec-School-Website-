@@ -15,3 +15,4 @@ Static, SEO-ready website for Sun Rise Sr. Sec. School, Magho Majri (Kaithal).
 - Check the domain in `_build/build.js` (`SITE.url`) and `robots.txt`.
 - Fill the "To be updated" rows in Mandatory Disclosure (RTE recognition, SMC, PTA, results, infrastructure).
 - Submit `sitemap.xml` in Google Search Console and claim the Google Business Profile.
+- `_build/drafts/mandatory-disclosure.html` — CBSE Mandatory Disclosure page, kept offline until the school sends the missing documents. To publish it, move it back to `_build/pages/`, add its links in `_build/build.js` (footer) and rebuild.
