@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /_build/
+
+Sitemap: https://sunriseschoolkaithal.com/sitemap.xml
