@@ -804,3 +804,9 @@ picture { display: contents; }
 .contact-card .btn--light, .contact-card .btn--light:hover { color: var(--primary-800); }
 .email-text { font-size: .9rem; overflow-wrap: anywhere; }
 @media (max-width: 720px) { .footer-bottom .container { flex-direction: column; align-items: flex-start; } }
+
+/* ---------- Mandatory disclosure ---------- */
+.disclosure-page { max-width: 1000px; }
+.disclosure-h { font-size: 1.6rem; margin-bottom: 16px; }
+.disclosure-sub { font-size: 1.1rem; margin: 28px 0 12px; }
+.disclosure td.indent { padding-left: 42px; color: var(--muted); }
