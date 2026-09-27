@@ -100,6 +100,7 @@ const NAV = [
     { label: "Principal's Message", sub: "A word from Mr. Khushi Ram", href: "about.html#principal" },
     { label: "Vision & Mission", sub: "What we stand for", href: "about.html#vision" },
     { label: "Faculty & Staff", sub: "Meet our teachers", href: "faculty.html" },
+    { label: "Mandatory Disclosure", sub: "As per CBSE Appendix-IX", href: "mandatory-disclosure.html" },
   ] },
   { label: "Academics", href: "academics.html", children: [
     { label: "Curriculum & Stages", sub: "Nursery to Class XII", href: "academics.html" },
@@ -313,7 +314,7 @@ function layout(page, body) {
         <li class="hide-sm"><a href="mailto:${SITE.email}">${ICONS.mail}${SITE.email}</a></li>
         <li class="hide-sm">${ICONS.clock}Mon – Sat · 8:30 AM – 2:20 PM</li>
       </ul>
-      <div class="topbar__right"><span class="topbar__tag">Affiliated to CBSE, New Delhi · No. ${SITE.affiliation}</span><div class="social social--top"><a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Sun Rise School on Instagram">${ICONS.instagram}</a><a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Sun Rise School on Facebook">${ICONS.facebook}</a><a href="mailto:${SITE.email}" aria-label="Email the school">${ICONS.mail}</a><a href="tel:${SITE.phoneRaw}" aria-label="Call the school">${ICONS.phone}</a></div></div>
+      <div class="topbar__right"><a class="topbar__tag" href="mandatory-disclosure.html">CBSE Affiliation No. ${SITE.affiliation} · Mandatory Disclosure</a><div class="social social--top"><a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Sun Rise School on Instagram">${ICONS.instagram}</a><a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Sun Rise School on Facebook">${ICONS.facebook}</a><a href="mailto:${SITE.email}" aria-label="Email the school">${ICONS.mail}</a><a href="tel:${SITE.phoneRaw}" aria-label="Call the school">${ICONS.phone}</a></div></div>
     </div>
   </div>
 
