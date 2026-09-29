@@ -72,7 +72,7 @@
       if (!start) start = ts;
       var p = Math.min((ts - start) / dur, 1);
       var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(target * eased) + suffix;
+      el.textContent = Math.round(target * eased).toLocaleString("en-IN") + suffix;
       if (p < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);

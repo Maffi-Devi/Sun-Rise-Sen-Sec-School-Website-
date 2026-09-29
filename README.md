@@ -13,5 +13,6 @@ Static, SEO-ready website for Sun Rise Sr. Sec. School, Magho Majri (Kaithal).
 
 ## Before going live
 - Check the domain in `_build/build.js` (`SITE.url`) and `robots.txt`.
-- Fill the "To be updated" rows in Mandatory Disclosure (RTE recognition, SMC, PTA, results, infrastructure).
+- Still pending in Mandatory Disclosure: RTE recognition certificate, Class X/XII board results (3 years), special educator, classroom/lab/library sizes, CWSN toilets, YouTube inspection video.
+- Still pending elsewhere: real Science lab / Computer lab / Library photos (stock photos used now), 2026-27 book list.
 - Submit `sitemap.xml` in Google Search Console and claim the Google Business Profile.
