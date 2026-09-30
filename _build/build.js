@@ -142,7 +142,7 @@ function schoolSchema() {
     "@type": ["School", "EducationalOrganization"],
     "@id": SITE.url + "/#school",
     name: SITE.name,
-    alternateName: ["Sun Rise Senior Secondary School", "Sunrise Sr. Sec. School Kaithal", "Sun Rise School Magho Majri"],
+    alternateName: ["Sun Rise Senior Secondary School", "Sunrise Sr. Sec. School Kaithal", "Sunrise School Kaithal", "Sun Rise School Magho Majri", "Sunrise School Magho Majri"],
     url: SITE.url + "/",
     logo: SITE.url + "/assets/img/logo.png",
     sameAs: [SITE.instagram, SITE.facebook],
@@ -161,7 +161,8 @@ function schoolSchema() {
     },
     geo: { "@type": "GeoCoordinates", latitude: SITE.lat, longitude: SITE.lng },
     hasMap: `https://www.google.com/maps?q=${SITE.lat},${SITE.lng}`,
-    areaServed: ["Kaithal", "Magho Majri", "Manas", "Gadli", "Gamri", "Budha Khera", "Atela", "Baba Ladana", "Sirta", "Franswala", "Bhanauli", "Chika", "Dharampura"],
+    areaServed: ["Magho Majri", "Manas", "Franswala", "Kaithal", "Gadli", "Gamri", "Budha Khera", "Atela", "Baba Ladana", "Sirta", "Bhanauli", "Chika", "Carhi", "Dharampura"].map((name) => ({ "@type": "Place", name: `${name}, Kaithal, Haryana` })),
+    contactPoint: [{ "@type": "ContactPoint", telephone: SITE.admissionPhoneRaw, contactType: "admissions", areaServed: "IN", availableLanguage: ["Hindi", "English"] }],
     founder: { "@type": "Organization", name: "Sun Rise Education Society, Mago Majri" },
     employee: { "@type": "Person", name: "Khushi Ram", jobTitle: "Principal" },
     hasCredential: {
@@ -275,9 +276,9 @@ function layout(page, body) {
   <meta name="keywords" content="${page.keywords || "Sun Rise Sr. Sec. School, Sunrise School Kaithal, CBSE school Kaithal, Magho Majri school, best school in Kaithal, CBSE 531671"}">
   <meta name="author" content="${SITE.fullName}">
   <meta name="robots" content="${page.robots || "index, follow, max-image-preview:large"}">
-  <meta name="theme-color" content="#0f766e">
+  <meta name="theme-color" content="#1d4ed8">
   <meta name="geo.region" content="IN-HR">
-  <meta name="geo.placename" content="Magho Majri, Kaithal">
+  <meta name="geo.placename" content="Magho Majri, Manas, Kaithal, Haryana">
   <meta name="geo.position" content="${SITE.lat};${SITE.lng}">
   <meta name="ICBM" content="${SITE.lat}, ${SITE.lng}">
   <link rel="canonical" href="${canonical}">

@@ -183,21 +183,27 @@
     });
   });
 
-  /* ---------- Academic calendar: highlight the current/next exam ---------- */
+  /* ---------- Academic calendar: mark finished exams, highlight the current/next one ---------- */
   var tl = document.querySelectorAll(".tl-item[data-end]");
   if (tl.length) {
     var today = new Date(); today.setHours(0, 0, 0, 0);
+    var found = false;
     for (var i = 0; i < tl.length; i++) {
       var end = new Date(tl[i].getAttribute("data-end") + "T23:59:59");
-      if (end >= today) {
+      var badge = document.createElement("span");
+      badge.className = "now";
+      if (end < today) {
+        tl[i].classList.add("is-done");
+        badge.className = "now now--done";
+        badge.textContent = "Completed";
+      } else if (!found) {
+        found = true;
         tl[i].classList.add("is-current");
         var start = new Date(tl[i].getAttribute("data-start") + "T00:00:00");
-        var badge = document.createElement("span");
-        badge.className = "now";
-        badge.textContent = start <= today ? "Ongoing" : "Up next";
-        tl[i].appendChild(badge);
-        break;
-      }
+        var days = Math.round((start - today) / 864e5);
+        badge.textContent = start <= today ? "Ongoing" : days === 1 ? "Starts tomorrow" : days <= 30 ? "Starts in " + days + " days" : "Up next";
+      } else continue;
+      tl[i].appendChild(badge);
     }
   }
 

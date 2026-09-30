@@ -113,7 +113,7 @@
     <section class="section" id="documents">
       <div class="container split">
         <div class="split__media reveal from-left">
-          <div class="img-frame"><img src="assets/img/event-kids-activity.jpg" alt="Young students at Sun Rise Sr. Sec. School" loading="lazy"></div>
+          <button class="poster" type="button" data-lightbox><img src="assets/img/poster-admission-documents.jpg" data-sizes="(max-width: 720px) 90vw, 440px" alt="Poster listing the documents required for new admission 2026-27 at Sun Rise Sr. Sec. School" loading="lazy"></button>
         </div>
         <div class="reveal from-right">
           <span class="eyebrow">Checklist</span>
@@ -152,7 +152,7 @@
     <section class="section" id="enquiry">
       <div class="container contact-grid">
         <div class="contact-card reveal from-left">
-          <span class="eyebrow" style="color:#99f6e4">Admission Help Desk</span>
+          <span class="eyebrow" style="color:#bfdbfe">Admission Help Desk</span>
           <h2 class="section-title" style="font-size:1.9rem">Talk to us</h2>
           <p>Our admission team will be happy to answer your questions and guide you through the process.</p>
           <ul class="info-list mt-2">
@@ -206,3 +206,11 @@
         </div>
       </div>
     </section>
+
+    <div class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+      <img src="data:," alt="">
+      <p class="lightbox__cap"></p>
+      <button class="lb-close" type="button" aria-label="Close">{{icon:x}}</button>
+      <button class="lb-prev" type="button" aria-label="Previous image">{{icon:left}}</button>
+      <button class="lb-next" type="button" aria-label="Next image">{{icon:right}}</button>
+    </div>
