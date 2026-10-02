@@ -106,6 +106,7 @@ const NAV = [
     { label: "Curriculum & Stages", sub: "Nursery to Class XII", href: "academics.html" },
     { label: "Senior Secondary Streams", sub: "Arts · Commerce · Science", href: "academics.html#streams" },
     { label: "Academic Calendar", sub: "Session 2026-27", href: "academics.html#calendar" },
+    { label: "Book List", sub: "NCERT / CBSE · 2026-27", href: "book-list.html" },
     { label: "Co-Curricular Activities", sub: "Beyond the classroom", href: "academics.html#co-curricular" },
   ] },
   { label: "Admissions", href: "admissions.html", children: [
@@ -370,6 +371,7 @@ ${body}
           <li><a href="admissions.html">Admissions 2026-27</a></li>
           <li><a href="fee-structure.html">Fee Structure</a></li>
           <li><a href="academics.html#calendar">Academic Calendar</a></li>
+          <li><a href="book-list.html">Book List 2026-27</a></li>
           <li><a href="mandatory-disclosure.html">Mandatory Disclosure</a></li>
           <li><a href="careers.html">Careers</a></li>
           <li><a href="contact.html">Contact Us</a></li>

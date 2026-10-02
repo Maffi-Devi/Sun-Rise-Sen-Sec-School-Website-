@@ -455,6 +455,7 @@ td.total { font-weight: 800; color: var(--primary-700); }
 .acc[open] summary::after { transform: rotate(45deg); }
 .acc__body { padding: 0 22px 20px; color: var(--muted); }
 .acc__body p:last-child { margin: 0; }
+.book-list .acc__body { padding: 0 14px 16px; }
 
 /* ---------- Tabs ---------- */
 .tabs__list { display: inline-flex; flex-wrap: wrap; gap: 6px; padding: 6px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: 999px; margin-bottom: 30px; }
