@@ -3,6 +3,13 @@
   "use strict";
   document.documentElement.classList.remove("no-js"); // normally already done by the inline script in <head>
 
+  /* ---------- Intro screen: remove it once it has played (or was not shown) ---------- */
+  var intro = document.querySelector(".intro-screen");
+  if (intro) {
+    if (!document.documentElement.classList.contains("intro")) intro.remove();
+    else intro.addEventListener("animationend", function (e) { if (e.target === intro) intro.remove(); });
+  }
+
   /* ---------- Sticky header shadow + back-to-top ---------- */
   var header = document.querySelector(".site-header");
   var toTop = document.querySelector(".fab__top");

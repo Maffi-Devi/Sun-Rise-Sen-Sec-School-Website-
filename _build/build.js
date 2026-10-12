@@ -271,7 +271,7 @@ function layout(page, body) {
 <html lang="en-IN" class="no-js">
 <head>
   <meta charset="utf-8">
-  <script>document.documentElement.classList.remove("no-js")</script>
+  <script>(function(d){d.classList.remove("no-js");try{if(!sessionStorage.getItem("sr-intro")){sessionStorage.setItem("sr-intro","1");d.classList.add("intro")}}catch(e){}})(document.documentElement)</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${page.title}</title>
   <meta name="description" content="${page.description}">
@@ -309,6 +309,14 @@ function layout(page, body) {
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+  <div class="intro-screen" aria-hidden="true">
+    <div>
+      <div class="intro-screen__logo"><span></span></div>
+      <p class="intro-screen__name">${SITE.name}</p>
+      <p class="intro-screen__motto">${SITE.motto}</p>
+      <span class="intro-screen__bar"></span>
+    </div>
+  </div>
 
   <div class="topbar">
     <div class="container">
