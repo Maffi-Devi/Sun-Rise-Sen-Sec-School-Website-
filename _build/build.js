@@ -391,7 +391,7 @@ ${body}
         <div class="social social--footer"><a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Sun Rise School on Instagram">${ICONS.instagram}</a><a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Sun Rise School on Facebook">${ICONS.facebook}</a><a href="mailto:${SITE.email}" aria-label="Email the school">${ICONS.mail}</a><a href="tel:${SITE.phoneRaw}" aria-label="Call the school">${ICONS.phone}</a></div>
       </div>
       <div>
-        <h3>Quick Links</h3>
+        <h2>Quick Links</h2>
         <ul class="footer-links">
           <li><a href="about.html">About Us</a></li>
           <li><a href="academics.html">Academics</a></li>
@@ -402,7 +402,7 @@ ${body}
         </ul>
       </div>
       <div>
-        <h3>Parents' Corner</h3>
+        <h2>Parents' Corner</h2>
         <ul class="footer-links">
           <li><a href="admissions.html">Admissions 2026-27</a></li>
           <li><a href="fee-structure.html">Fee Structure</a></li>
@@ -414,7 +414,7 @@ ${body}
         </ul>
       </div>
       <div>
-        <h3>Get in Touch</h3>
+        <h2>Get in Touch</h2>
         <ul class="footer-contact">
           <li>${ICONS.pin}<span>${SITE.street},<br>${SITE.city}, ${SITE.region} – ${SITE.pin}</span></li>
           <li>${ICONS.phone}<span><a href="tel:${SITE.phoneRaw}">${SITE.phone}</a><br><a href="tel:${SITE.admissionPhoneRaw}">${SITE.admissionPhone}</a> (Admissions)</span></li>

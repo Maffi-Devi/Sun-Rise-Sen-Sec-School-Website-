@@ -521,7 +521,7 @@ td.total { font-weight: 800; color: var(--primary-700); }
 /* ---------- Footer ---------- */
 .site-footer { background: #0c1a3a; color: #a9bce0; padding-top: 80px; font-size: .94rem; }
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.3fr; gap: 40px; padding-bottom: 50px; }
-.site-footer h3 { color: #fff; font-size: 1.05rem; margin-bottom: 18px; font-family: var(--font-body); }
+.site-footer h2 { color: #fff; font-size: 1.05rem; margin-bottom: 18px; font-family: var(--font-body); font-weight: 700; letter-spacing: normal; }
 .site-footer a { color: #a9bce0; }
 .site-footer a:hover { color: #fff; }
 .footer-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
