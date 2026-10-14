@@ -367,7 +367,7 @@ function layout(page, body) {
     </div>
   </header>
 
-  <main id="main">
+  <main id="main" tabindex="-1">
 ${body}
   </main>
 

@@ -10,6 +10,15 @@
     else intro.addEventListener("animationend", function (e) { if (e.target === intro) intro.remove(); });
   }
 
+  /* ---------- Skip link: jump to content without adding #main to the URL ---------- */
+  var skip = document.querySelector(".skip-link");
+  var mainEl = document.getElementById("main");
+  if (skip && mainEl) skip.addEventListener("click", function (e) {
+    e.preventDefault();
+    mainEl.focus({ preventScroll: true });
+    mainEl.scrollIntoView();
+  });
+
   /* ---------- Sticky header shadow + back-to-top ---------- */
   var header = document.querySelector(".site-header");
   var toTop = document.querySelector(".fab__top");
