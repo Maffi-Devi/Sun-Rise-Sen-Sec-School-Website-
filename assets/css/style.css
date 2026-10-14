@@ -819,9 +819,11 @@ picture { display: contents; }
 /* ---------- Footer legal links ---------- */
 .footer-bottom .container { align-items: center; }
 .footer-bottom small { color: #8196c0; }
-.footer-credit { font-size: .76rem; }
-.footer-credit a { color: #a9bce0; }
-.footer-credit a:hover { color: #fff; }
+.footer-copy { background: #081330; border-top: 1px solid rgba(255,255,255,.08); padding: 18px 0; text-align: center; }
+.footer-copy p { margin: 0; color: #d6e4fb; font-size: .92rem; font-weight: 600; line-height: 1.6; }
+.footer-copy .footer-credit { margin-top: 4px; }
+.footer-credit a { color: #fff; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,.35); transition: color .2s, border-color .2s; }
+.footer-credit a:hover { color: var(--primary-200); border-color: currentColor; }
 .footer-legal { display: flex; flex-wrap: wrap; gap: 6px 22px; }
 .footer-legal a { color: #a9bce0; font-weight: 600; }
 .footer-legal a:hover { color: #fff; }
