@@ -189,7 +189,7 @@ function breadcrumbSchema(page) {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: SITE.url + "/" },
-      { "@type": "ListItem", position: 2, name: page.crumb, item: SITE.url + "/" + page.file },
+      { "@type": "ListItem", position: 2, name: page.crumb, item: SITE.url + cleanPath(page.file) },
     ],
   };
 }
@@ -260,12 +260,19 @@ const CSP = [
   "upgrade-insecure-requests",
 ].join("; ");
 
+/* ---------------- Clean URLs ---------------- */
+// GitHub Pages serves about.html at /about, so links, canonicals and the sitemap drop ".html".
+const cleanPath = (file) => "/" + (file === "index.html" ? "" : file.replace(/\.html$/, ""));
+function cleanLinks(html) {
+  return html.replace(/href="([a-z0-9-]+)\.html(#[^"]*)?"/g, (_, name, hash = "") => `href="${cleanPath(name + ".html")}${hash}"`);
+}
+
 /* ---------------- Layout ---------------- */
 const esc = (s) => String(s).replace(/&(?![a-zA-Z]+;|#d+;)/g, "&amp;").replace(/"/g, "&quot;");
 
 function layout(page, body) {
   page = { ...page, title: esc(page.title), description: esc(page.description), ogTitle: page.ogTitle && esc(page.ogTitle) };
-  const canonical = SITE.url + "/" + (page.file === "index.html" ? "" : page.file);
+  const canonical = SITE.url + cleanPath(page.file);
   const ogImage = SITE.url + "/assets/img/" + (page.ogImage || "morning-assembly.jpg");
   const schemas = [schoolSchema(), breadcrumbSchema(page)].concat(page.schema || []).filter(Boolean);
   const ld = schemas.map((s) => `<script type="application/ld+json">${JSON.stringify(s)}</script>`).join("\n  ");
@@ -477,7 +484,9 @@ for (const name of fs.readdirSync(PAGES).filter((f) => f.endsWith(".html"))) {
     return ICONS[k];
   });
   body = body.replace(/\{\{site:(\w+)\}\}/g, (_, k) => SITE[k]);
-  const html = addImageDims(layout(page, body));
+  let html = cleanLinks(addImageDims(layout(page, body)));
+  // 404 is served at any missing path, so resolve its relative assets from the site root
+  if (page.file === "404.html") html = html.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n  <base href="/">');
   fs.writeFileSync(path.join(ROOT, page.file), html);
   built.push(page);
   console.log("built", page.file);
@@ -488,7 +497,7 @@ const today = new Date().toISOString().slice(0, 10);
 const urls = built
   .filter((p) => !p.noindex)
   .sort((a, b) => (b.priority || 0.5) - (a.priority || 0.5))
-  .map((p) => `  <url>\n    <loc>${SITE.url}/${p.file === "index.html" ? "" : p.file}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${p.changefreq || "monthly"}</changefreq>\n    <priority>${(p.priority || 0.6).toFixed(1)}</priority>\n  </url>`)
+  .map((p) => `  <url>\n    <loc>${SITE.url}${cleanPath(p.file)}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${p.changefreq || "monthly"}</changefreq>\n    <priority>${(p.priority || 0.6).toFixed(1)}</priority>\n  </url>`)
   .join("\n");
 fs.writeFileSync(path.join(ROOT, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
 console.log("built sitemap.xml");
