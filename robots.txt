@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /_build/
 
-Sitemap: https://sunriseschoolkaithal.com/sitemap.xml
+Sitemap: https://sunriseschoolkaithal.in/sitemap.xml

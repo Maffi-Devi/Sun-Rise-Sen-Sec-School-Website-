@@ -14,7 +14,7 @@ const ROOT = path.resolve(__dirname, "..");
 const PAGES = path.join(__dirname, "pages");
 
 const SITE = {
-  url: "https://sunriseschoolkaithal.com",
+  url: "https://sunriseschoolkaithal.in",
   name: "Sun Rise Sr. Sec. School",
   fullName: "Sun Rise Sr. Sec. School, Magho Majri (Kaithal)",
   motto: "Rise Together and Shine Together",
