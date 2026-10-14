@@ -8,6 +8,7 @@
  * writes the finished page (plus sitemap.xml) to the project root.
  */
 const fs = require("fs");
+const crypto = require("crypto");
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
@@ -242,6 +243,23 @@ function addImageDims(html) {
   });
 }
 
+/* ---------------- Security ---------------- */
+// Inline script that decides whether the logo intro plays; its hash is allowed in the CSP below.
+const INTRO_JS = '(function(d){d.classList.remove("no-js");try{if(!sessionStorage.getItem("sr-intro")){sessionStorage.setItem("sr-intro","1");d.classList.add("intro")}}catch(e){}})(document.documentElement)';
+const CSP = [
+  "default-src 'self'",
+  `script-src 'self' 'sha256-${crypto.createHash("sha256").update(INTRO_JS).digest("base64")}'`,
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  "frame-src https://www.google.com",
+  "connect-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "upgrade-insecure-requests",
+].join("; ");
+
 /* ---------------- Layout ---------------- */
 const esc = (s) => String(s).replace(/&(?![a-zA-Z]+;|#d+;)/g, "&amp;").replace(/"/g, "&quot;");
 
@@ -271,7 +289,9 @@ function layout(page, body) {
 <html lang="en-IN" class="no-js">
 <head>
   <meta charset="utf-8">
-  <script>(function(d){d.classList.remove("no-js");try{if(!sessionStorage.getItem("sr-intro")){sessionStorage.setItem("sr-intro","1");d.classList.add("intro")}}catch(e){}})(document.documentElement)</script>
+  <meta http-equiv="Content-Security-Policy" content="${CSP}">
+  <script>${INTRO_JS}</script>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${page.title}</title>
   <meta name="description" content="${page.description}">
