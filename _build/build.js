@@ -260,6 +260,33 @@ const CSP = [
   "upgrade-insecure-requests",
 ].join("; ");
 
+/* ---------------- Tables ---------------- */
+// Tables with 3+ columns turn into one card per row on phones: each cell gets its column name
+// as data-label, the serial-number cell and the first real cell get classes for the card layout.
+const stripTags = (s) => s.replace(/<[^>]+>/g, "").replace(/&amp;/g, "&").trim();
+function stackTables(html) {
+  return html.replace(/<table\b([^>]*)>([\s\S]*?)<\/table>/g, (whole, attrs, inner) => {
+    const head = inner.match(/<thead>[\s\S]*?<\/thead>/);
+    if (!head) return whole;
+    const labels = [...head[0].matchAll(/<th\b[^>]*>([\s\S]*?)<\/th>/g)].map((m) => stripTags(m[1]));
+    if (labels.length < 3) return whole;
+    const sno = /^s\.?\s*no\.?$/i.test(labels[0]);
+    const body = inner.replace(/<tr\b([^>]*)>([\s\S]*?)<\/tr>/g, (row, trAttrs, cells) => {
+      if (/<th\b/.test(cells)) return row;
+      let i = 0;
+      return `<tr${trAttrs}>` + cells.replace(/<td\b([^>]*)>/g, (td, tdAttrs) => {
+        const idx = i++;
+        const role = sno && idx === 0 ? "c-sno" : idx === (sno ? 1 : 0) ? "c-title" : "";
+        let a = tdAttrs.replace(/\sdata-label="[^"]*"/, "") + ` data-label="${esc(labels[idx] || "")}"`;
+        if (role) a = /\sclass="/.test(a) ? a.replace(/\sclass="/, ` class="${role} `) : a + ` class="${role}"`;
+        return `<td${a}>`;
+      }) + "</tr>";
+    });
+    const cls = /\sclass="/.test(attrs) ? attrs.replace(/\sclass="/, ` class="stack `) : attrs + ` class="stack"`;
+    return `<table${cls}>${body}</table>`;
+  });
+}
+
 /* ---------------- Clean URLs ---------------- */
 // GitHub Pages serves about.html at /about, so links, canonicals and the sitemap drop ".html".
 const cleanPath = (file) => "/" + (file === "index.html" ? "" : file.replace(/\.html$/, ""));
@@ -446,8 +473,9 @@ ${body}
   </footer>
 
   <div class="fab">
-    <a class="fab__wa" href="https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent("Hello, I would like to know about admissions at Sun Rise Sr. Sec. School.")}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">${ICONS.whatsapp}</a>
-    <a class="fab__call" href="tel:${SITE.phoneRaw}" aria-label="Call the school">${ICONS.phone}</a>
+    <a class="fab__call" href="tel:${SITE.phoneRaw}" aria-label="Call the school">${ICONS.phone}<span class="fab__label">Call</span></a>
+    <a class="fab__wa" href="https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent("Hello, I would like to know about admissions at Sun Rise Sr. Sec. School.")}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">${ICONS.whatsapp}<span class="fab__label">WhatsApp</span></a>
+    <a class="fab__apply" href="admissions.html#enquiry">${ICONS.arrow}<span class="fab__label">Apply Now</span></a>
     <button class="fab__top" type="button" aria-label="Back to top">${ICONS.up}</button>
   </div>
 
@@ -492,7 +520,7 @@ for (const name of fs.readdirSync(PAGES).filter((f) => f.endsWith(".html"))) {
     return ICONS[k];
   });
   body = body.replace(/\{\{site:(\w+)\}\}/g, (_, k) => SITE[k]);
-  let html = cleanLinks(addImageDims(layout(page, body)));
+  let html = cleanLinks(stackTables(addImageDims(layout(page, body))));
   // 404 is served at any missing path, so resolve its relative assets from the site root
   if (page.file === "404.html") html = html.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n  <base href="/">');
   fs.writeFileSync(path.join(ROOT, page.file), html);

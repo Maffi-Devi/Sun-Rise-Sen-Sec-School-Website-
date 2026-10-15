@@ -200,12 +200,6 @@
       play();
     }
     if (document.readyState === "complete") arm(); else window.addEventListener("load", arm);
-    // on phones the call/WhatsApp buttons would sit on top of the hero's own buttons
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (entries) {
-        document.body.classList.toggle("hs-in-view", entries[0].intersectionRatio > 0.35);
-      }, { threshold: [0, 0.35, 1] }).observe(hs);
-    }
   }
 
   /* ---------- Gallery filters ---------- */
