@@ -56,32 +56,62 @@
   "priority": 1,
   "changefreq": "weekly",
   "preload": "assets/img/haryanvi-culture-group.jpg",
-  "preloadSizes": "100vw"
+  "preloadSizes": "(max-width: 720px) 100vw, 50vw"
 }-->
-    <!-- HERO: full-width photo slider with the school name -->
+    <!-- HERO: auto-scrolling photo collages + school name -->
     <section class="hs" aria-roledescription="carousel" aria-label="Life at Sun Rise">
-      <div class="hs__slides">
-        <figure class="hs__slide is-active is-ready" style="--pos:center 62%"><img src="assets/img/haryanvi-culture-group.jpg" data-sizes="100vw" alt="Students and teachers of Sun Rise in colourful Haryanvi attire on the school stage" fetchpriority="high"></figure>
-        <figure class="hs__slide" style="--pos:center 45%"><img src="assets/img/morning-assembly.jpg" data-sizes="100vw" alt="Students of Sun Rise Sr. Sec. School at the morning assembly on the school ground" loading="lazy"></figure>
-        <figure class="hs__slide" style="--pos:center 72%"><img src="assets/img/event-cultural-stage.jpg" data-sizes="100vw" alt="Folk artists honoured on the Sun Rise stage" loading="lazy"></figure>
-        <figure class="hs__slide" style="--pos:center 30%"><img src="assets/img/haryanvi-attire-kids.jpg" data-sizes="100vw" alt="Pre-primary children dressed in traditional Haryanvi attire" loading="lazy"></figure>
-        <figure class="hs__slide" style="--pos:center 55%"><img src="assets/img/teacher-training-campus.jpg" data-sizes="100vw" alt="Teachers in front of the Sun Rise Sr. Sec. School building" loading="lazy"></figure>
-      </div>
-      <div class="container hs__content">
-        <span class="hs__badge"><span>2026-27</span> Admissions are now open</span>
-        <p class="hs__welcome">Welcome to</p>
-        <h1 class="hs__title"><span class="hs__name">Sun Rise</span> <span class="hs__full">Senior Secondary School</span></h1>
-        <p class="hs__place">{{icon:pin}} Magho Majri,<span class="hs__road"> Khanouri Road,</span> Kaithal (Haryana)</p>
-        <p class="hs__text">A CBSE-affiliated school (No. 531671) offering caring, value-based education from Nursery to Class XII since 2005.</p>
-        <div class="hs__actions">
-          <a class="btn btn--gold" href="admissions.html">Apply for Admission {{icon:arrow}}</a>
-          <a class="btn btn--glass" href="about.html">Discover Our School</a>
+      <div class="hs__viewport">
+        <div class="hs__track">
+          <div class="hs__slide hs__slide--a is-active is-ready" role="group" aria-roledescription="slide" aria-label="1 of 5">
+            <figure class="hs__tile hs__tile--big"><img src="assets/img/haryanvi-culture-group.jpg" data-sizes="(max-width: 720px) 100vw, 50vw" alt="Students and teachers of Sun Rise in colourful Haryanvi attire"></figure>
+            <figure class="hs__tile hs__tile--m"><img src="assets/img/tilak-welcome.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="A student welcomes a guest with a tilak"></figure>
+            <figure class="hs__tile hs__tile--m"><img src="assets/img/haryanvi-attire-pair.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Little students in traditional Haryanvi dress"></figure>
+            <figure class="hs__tile"><img src="assets/img/unity-circle.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Students in traditional dress join hands in a circle"></figure>
+            <figure class="hs__tile"><img src="assets/img/haryanvi-welcome-team.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Students in Haryanvi dress welcoming guests"></figure>
+          </div>
+          <div class="hs__slide hs__slide--b" role="group" aria-roledescription="slide" aria-label="2 of 5">
+            <figure class="hs__tile hs__tile--tall"><img src="assets/img/students-sunrise-wall.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Students and teachers in front of the Sunrise Sr. Sec. School wall" loading="lazy"></figure>
+            <figure class="hs__tile hs__tile--big hs__tile--wide"><img src="assets/img/morning-assembly.jpg" data-sizes="(max-width: 720px) 100vw, 50vw" alt="Morning assembly on the school ground" loading="lazy"></figure>
+            <figure class="hs__tile hs__tile--tall"><img src="assets/img/classroom-primary.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Primary students in their classroom" loading="lazy"></figure>
+            <figure class="hs__tile hs__tile--m"><img src="assets/img/kids-winter-uniform.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Little ones in winter uniform on the playground" loading="lazy"></figure>
+            <figure class="hs__tile hs__tile--m"><img src="assets/img/yoga-day-assembly.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="International Yoga Day on the school ground" loading="lazy"></figure>
+          </div>
+          <div class="hs__slide hs__slide--c" role="group" aria-roledescription="slide" aria-label="3 of 5">
+            <figure class="hs__tile hs__tile--big"><img src="assets/img/event-cultural-stage.jpg" data-sizes="(max-width: 720px) 100vw, 50vw" alt="Folk artists honoured on the Sun Rise stage" loading="lazy"></figure>
+            <figure class="hs__tile hs__tile--m"><img src="assets/img/haryanvi-attire-kids.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Pre-primary children in traditional attire" loading="lazy"></figure>
+            <figure class="hs__tile hs__tile--m"><img src="assets/img/havan.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Havan ceremony at school" loading="lazy"></figure>
+            <figure class="hs__tile"><img src="assets/img/independence-day-kids.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Independence Day celebration by junior students" loading="lazy"></figure>
+            <figure class="hs__tile"><img src="assets/img/event-holi.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Holi celebration with friends" loading="lazy"></figure>
+          </div>
+          <div class="hs__slide hs__slide--b" role="group" aria-roledescription="slide" aria-label="4 of 5">
+            <figure class="hs__tile hs__tile--tall"><img src="assets/img/yoga-pyramid.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Yoga pyramid by senior students" loading="lazy"></figure>
+            <figure class="hs__tile hs__tile--big hs__tile--wide"><img src="assets/img/classroom-students.jpg" data-sizes="(max-width: 720px) 100vw, 50vw" alt="Students in their classroom" loading="lazy"></figure>
+            <figure class="hs__tile hs__tile--tall"><img src="assets/img/pre-primary-learning.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Activity-based learning in the pre-primary wing" loading="lazy"></figure>
+            <figure class="hs__tile hs__tile--m"><img src="assets/img/science-lab.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Science laboratory" loading="lazy"></figure>
+            <figure class="hs__tile hs__tile--m"><img src="assets/img/mehndi-competition.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Mehndi competition" loading="lazy"></figure>
+          </div>
+          <div class="hs__slide hs__slide--a" role="group" aria-roledescription="slide" aria-label="5 of 5">
+            <figure class="hs__tile hs__tile--big"><img src="assets/img/teacher-training-campus.jpg" data-sizes="(max-width: 720px) 100vw, 50vw" alt="Teachers in front of the Sun Rise school building" loading="lazy"></figure>
+            <figure class="hs__tile hs__tile--m"><img src="assets/img/scooty-award.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Scooty award for board toppers" loading="lazy"></figure>
+            <figure class="hs__tile hs__tile--m"><img src="assets/img/staff-stage.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Teachers of Sun Rise honoured on stage" loading="lazy"></figure>
+            <figure class="hs__tile"><img src="assets/img/bicycle-award.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Bicycles awarded to young achievers" loading="lazy"></figure>
+            <figure class="hs__tile"><img src="assets/img/sports-wushu-team.jpg" data-sizes="(max-width: 720px) 50vw, 25vw" alt="Wushu medal winners with coach and director" loading="lazy"></figure>
+          </div>
         </div>
-      </div>
-      <div class="hs__controls">
-        <button class="hs__arrow" type="button" data-hs-prev aria-label="Previous photo">{{icon:left}}</button>
+        <button class="hs__arrow hs__arrow--prev" type="button" data-hs-prev aria-label="Previous photos">{{icon:left}}</button>
+        <button class="hs__arrow hs__arrow--next" type="button" data-hs-next aria-label="Next photos">{{icon:right}}</button>
         <div class="hs__dots"></div>
-        <button class="hs__arrow" type="button" data-hs-next aria-label="Next photo">{{icon:right}}</button>
+      </div>
+      <div class="hs__band">
+        <div class="container hs__content">
+          <h1 class="hs__title">Sun Rise Senior Secondary School</h1>
+          <p class="hs__place">KAITHAL, Haryana</p>
+          <p class="hs__aff">C.B.S.E. Affiliation No. 531671 <span>(Pre-School to XII)</span></p>
+          <div class="hs__actions">
+            <a class="btn btn--gold" href="admissions.html">Apply for Admission {{icon:arrow}}</a>
+            <a class="btn btn--glass" href="about.html">Discover Our School</a>
+          </div>
+        </div>
       </div>
     </section>
 

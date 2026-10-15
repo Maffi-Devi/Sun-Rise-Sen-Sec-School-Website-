@@ -118,51 +118,76 @@
     });
   });
 
-  /* ---------- Home hero slider ---------- */
+  /* ---------- Home hero: auto-scrolling photo collages ---------- */
   var hs = document.querySelector(".hs");
   if (hs) {
-    var slides = hs.querySelectorAll(".hs__slide");
+    var track = hs.querySelector(".hs__track");
+    var slides = Array.prototype.slice.call(track.children);
+    var n = slides.length;
     var dotsBox = hs.querySelector(".hs__dots");
-    var cur = 0, timer = null, stopped = false;
+    var cur = 0, timer = null, stopped = false, busy = false;
     var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var dots = Array.prototype.map.call(slides, function (s, i) {
+    // a copy of the first collage at the end lets the strip keep scrolling the same way
+    var clone = slides[0].cloneNode(true);
+    clone.classList.remove("is-active");
+    clone.setAttribute("aria-hidden", "true");
+    clone.querySelectorAll("img").forEach(function (img) { img.alt = ""; img.removeAttribute("fetchpriority"); });
+    track.appendChild(clone);
+    var dots = slides.map(function (s, i) {
       var d = document.createElement("button");
       d.type = "button";
       d.className = "hs__dot";
-      d.setAttribute("aria-label", "Show photo " + (i + 1));
+      d.setAttribute("aria-label", "Show collage " + (i + 1));
       d.setAttribute("aria-current", String(i === 0));
-      d.addEventListener("click", function () { stopped = true; go(i); });
+      d.addEventListener("click", function () { stop(); go(i); });
       dotsBox.appendChild(d);
       return d;
     });
-    function go(i) {
-      cur = (i + slides.length) % slides.length;
-      slides.forEach(function (s, j) { s.classList.toggle("is-active", j === cur); });
-      dots.forEach(function (d, j) { d.setAttribute("aria-current", String(j === cur)); });
+    function place(animate) {
+      track.style.transition = animate ? "" : "none";
+      track.style.transform = "translateX(" + (-cur * 100) + "%)";
     }
+    function mark() {
+      var real = cur % n;
+      slides.forEach(function (s, j) { s.classList.toggle("is-active", j === real); });
+      clone.classList.toggle("is-active", cur === n);
+      dots.forEach(function (d, j) { d.setAttribute("aria-current", String(j === real)); });
+    }
+    function go(i) {
+      if (busy) return;
+      if (i < 0) { cur = n; place(false); track.offsetWidth; i = n - 1; } // jump to the copy, then step back
+      cur = i;
+      busy = !still;
+      place(!still);
+      mark();
+      if (still) settle(); else setTimeout(function () { if (busy) settle(); }, 1100); // in case transitionend never fires
+    }
+    function settle() {
+      busy = false;
+      if (cur === n) { cur = 0; place(false); mark(); }
+    }
+    track.addEventListener("transitionend", function (e) { if (e.target === track) settle(); });
     function play() {
       clearInterval(timer);
-      if (!still && !stopped) timer = setInterval(function () { go(cur + 1); }, 5500);
+      if (!still && !stopped) timer = setInterval(function () { go(cur + 1); }, 5000);
     }
-    function pause() { clearInterval(timer); }
-    hs.querySelector("[data-hs-prev]").addEventListener("click", function () { stopped = true; go(cur - 1); pause(); });
-    hs.querySelector("[data-hs-next]").addEventListener("click", function () { stopped = true; go(cur + 1); pause(); });
-    hs.addEventListener("mouseenter", pause);
+    function stop() { stopped = true; clearInterval(timer); }
+    hs.querySelector("[data-hs-prev]").addEventListener("click", function () { stop(); go(cur - 1); });
+    hs.querySelector("[data-hs-next]").addEventListener("click", function () { stop(); go(cur + 1); });
+    hs.addEventListener("mouseenter", function () { clearInterval(timer); });
     hs.addEventListener("mouseleave", play);
-    hs.addEventListener("focusin", pause);
-    document.addEventListener("visibilitychange", function () { if (document.hidden) pause(); else play(); });
-    // swipe on touch screens
+    document.addEventListener("visibilitychange", function () { if (document.hidden) clearInterval(timer); else play(); });
     var x0 = null;
-    hs.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
-    hs.addEventListener("touchend", function (e) {
+    track.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener("touchend", function (e) {
       if (x0 === null) return;
       var dx = e.changedTouches[0].clientX - x0;
       x0 = null;
-      if (Math.abs(dx) > 50) { stopped = true; pause(); go(cur + (dx < 0 ? 1 : -1)); }
+      if (Math.abs(dx) > 50) { stop(); go(cur + (dx < 0 ? 1 : -1)); }
     });
-    // the other photos start loading only after the page has finished loading
+    // the other collages load their photos only after the page itself has loaded
     function arm() {
-      slides.forEach(function (s) { s.classList.add("is-ready"); });
+      slides.concat(clone).forEach(function (s) { s.classList.add("is-ready"); });
       play();
     }
     if (document.readyState === "complete") arm(); else window.addEventListener("load", arm);
