@@ -231,7 +231,7 @@
       frame.src = box.getAttribute("data-map-src");
       frame.title = box.getAttribute("data-map-title");
       frame.loading = "lazy";
-      frame.referrerPolicy = "no-referrer-when-downgrade";
+      frame.referrerPolicy = "strict-origin-when-cross-origin";
       frame.allowFullscreen = true;
       box.replaceWith(frame);
     });
