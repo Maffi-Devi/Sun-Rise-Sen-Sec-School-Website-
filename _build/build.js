@@ -245,8 +245,9 @@ function addImageDims(html) {
 
 /* ---------------- Security ---------------- */
 // Inline script that decides whether the logo intro plays; its hash is allowed in the CSP below.
-// The welcome screen plays only on the home page, once per visit.
-const INTRO_JS = '(function(d){d.classList.remove("no-js");var p=location.pathname;if(p!=="/"&&p!=="/index"&&p!=="/index.html")return;try{var n=Date.now(),t=+localStorage.getItem("sr-intro-t")||0;if(!sessionStorage.getItem("sr-intro")&&n-t>18e5){sessionStorage.setItem("sr-intro","1");localStorage.setItem("sr-intro-t",n);d.classList.add("intro")}}catch(e){}})(document.documentElement)';
+// The welcome screen plays whenever the home page is opened from outside the site (typed address,
+// a link, a bookmark) or reloaded; not on other pages and not when moving around inside the site.
+const INTRO_JS = '(function(d){d.classList.remove("no-js");var p=location.pathname;if(p!=="/"&&p!=="/index"&&p!=="/index.html")return;var show=true;try{var nav=performance.getEntriesByType("navigation")[0],type=nav&&nav.type,inside=document.referrer.indexOf(location.origin+"/")===0;if(type==="back_forward"||(inside&&type!=="reload"))show=false}catch(e){}if(show)d.classList.add("intro")})(document.documentElement)';
 const CSP = [
   "default-src 'self'",
   `script-src 'self' 'sha256-${crypto.createHash("sha256").update(INTRO_JS).digest("base64")}'`,
