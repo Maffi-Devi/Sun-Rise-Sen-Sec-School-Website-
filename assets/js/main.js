@@ -156,8 +156,15 @@
       track.style.transition = animate ? "" : "none";
       track.style.transform = "translateX(" + (-cur * 100) + "%)";
     }
+    // a collage loads its photos when it is shown or is next in line, not all at once
+    function ready(i) {
+      slides[i % n].classList.add("is-ready");
+      if (i % n === 0) clone.classList.add("is-ready");
+    }
     function mark() {
       var real = cur % n;
+      ready(real);
+      ready(real + 1);
       slides.forEach(function (s, j) { s.classList.toggle("is-active", j === real); });
       clone.classList.toggle("is-active", cur === n);
       dots.forEach(function (d, j) { d.setAttribute("aria-current", String(j === real)); });
@@ -194,9 +201,10 @@
       x0 = null;
       if (Math.abs(dx) > 50) { stop(); go(cur + (dx < 0 ? 1 : -1)); }
     });
-    // the other collages load their photos only after the page itself has loaded
+    // the second collage starts loading only after the page itself has loaded
     function arm() {
-      slides.concat(clone).forEach(function (s) { s.classList.add("is-ready"); });
+      ready(0);
+      ready(1);
       play();
     }
     if (document.readyState === "complete") arm(); else window.addEventListener("load", arm);

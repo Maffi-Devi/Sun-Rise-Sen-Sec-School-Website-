@@ -245,7 +245,8 @@ function addImageDims(html) {
 
 /* ---------------- Security ---------------- */
 // Inline script that decides whether the logo intro plays; its hash is allowed in the CSP below.
-const INTRO_JS = '(function(d){d.classList.remove("no-js");try{if(!sessionStorage.getItem("sr-intro")){sessionStorage.setItem("sr-intro","1");d.classList.add("intro")}}catch(e){}})(document.documentElement)';
+// The welcome screen plays only on the home page, once per visit.
+const INTRO_JS = '(function(d){d.classList.remove("no-js");var p=location.pathname;if(p!=="/"&&p!=="/index"&&p!=="/index.html")return;try{var n=Date.now(),t=+localStorage.getItem("sr-intro-t")||0;if(!sessionStorage.getItem("sr-intro")&&n-t>18e5){sessionStorage.setItem("sr-intro","1");localStorage.setItem("sr-intro-t",n);d.classList.add("intro")}}catch(e){}})(document.documentElement)';
 const CSP = [
   "default-src 'self'",
   `script-src 'self' 'sha256-${crypto.createHash("sha256").update(INTRO_JS).digest("base64")}'`,
@@ -363,7 +364,7 @@ function layout(page, body) {
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <div class="intro-screen" role="dialog" aria-label="Welcome to Sun Rise Senior Secondary School">
+${page.file === "index.html" ? `  <div class="intro-screen" role="dialog" aria-label="Welcome to Sun Rise Senior Secondary School">
     <div class="intro-screen__inner">
       <div class="intro-screen__logo"><span></span></div>
       <p class="intro-screen__name">Sun Rise Senior Secondary School</p>
@@ -379,7 +380,7 @@ function layout(page, body) {
       <span class="intro-screen__bar"></span>
     </div>
   </div>
-
+` : ""}
   <div class="topbar">
     <div class="container">
       <ul class="topbar__list">
