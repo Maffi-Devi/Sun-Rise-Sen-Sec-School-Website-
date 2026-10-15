@@ -336,11 +336,19 @@ function layout(page, body) {
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <div class="intro-screen" aria-hidden="true">
-    <div>
+  <div class="intro-screen" role="dialog" aria-label="Welcome to Sun Rise Senior Secondary School">
+    <div class="intro-screen__inner">
       <div class="intro-screen__logo"><span></span></div>
-      <p class="intro-screen__name">${SITE.name}</p>
-      <p class="intro-screen__motto">${SITE.motto}</p>
+      <p class="intro-screen__name">Sun Rise Senior Secondary School</p>
+      <p class="intro-screen__meta">Kaithal, Haryana<i></i>CBSE Affiliation No. 531671</p>
+      <span class="intro-screen__rule"></span>
+      <p class="intro-screen__adm">Admissions Open</p>
+      <p class="intro-screen__year">2026 – 27</p>
+      <p class="intro-screen__sub">Pre-School to Class XII · All Streams Available</p>
+      <div class="intro-screen__actions">
+        <a class="btn btn--gold" href="admissions.html#enquiry">Enquire Now ${ICONS.arrow}</a>
+        <button class="intro-screen__skip" type="button">Skip ›</button>
+      </div>
       <span class="intro-screen__bar"></span>
     </div>
   </div>

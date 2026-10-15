@@ -7,7 +7,16 @@
   var intro = document.querySelector(".intro-screen");
   if (intro) {
     if (!document.documentElement.classList.contains("intro")) intro.remove();
-    else intro.addEventListener("animationend", function (e) { if (e.target === intro) intro.remove(); });
+    else {
+      var leave = function () { intro.classList.add("is-leaving"); };
+      intro.querySelector(".intro-screen__skip").addEventListener("click", leave);
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape" && intro.isConnected) leave(); });
+      intro.addEventListener("animationend", function (e) {
+        if (e.target !== intro) return;
+        intro.remove();
+        document.documentElement.classList.add("intro-done"); // let the page's own entrance play now
+      });
+    }
   }
 
   /* ---------- Skip link: jump to content without adding #main to the URL ---------- */
