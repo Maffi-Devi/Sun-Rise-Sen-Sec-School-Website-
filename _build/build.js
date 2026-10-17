@@ -353,7 +353,9 @@ function layout(page, body) {
   <meta name="twitter:description" content="${page.description}">
   <meta name="twitter:image" content="${ogImage}">
 
-  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/img/icon-48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="assets/img/icon-96.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/img/icon-192.png">
   <link rel="apple-touch-icon" href="assets/img/icon-180.png">
